@@ -6,7 +6,12 @@ from security import DefaultSecurity
 from ui import CommandLineInterface
 
 if __name__ == "__main__":
-    file_system = FileSystem()
+    new_file_system = int(input("Do you want a new FileSystem or Load existance:\t"))
+    if new_file_system:
+        file_system = FileSystem().load_from_json()
+    else:
+        file_system = FileSystem()
+
     while True:
         type_of_network_protocol = input("Type of Network Protocol:\t").upper()
         if type_of_network_protocol == "TCP":

@@ -1,0 +1,16 @@
+{
+    "name": "__root",
+    "files": [],
+    "subdirectories": [
+        {
+            "name": "file_1",
+            "files": [
+                {
+                    "name": "file_1",
+                    "content": "Ignat"
+                }
+            ],
+            "subdirectories": []
+        }
+    ]
+}

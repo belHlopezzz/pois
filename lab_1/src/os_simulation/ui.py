@@ -85,7 +85,7 @@ class CommandLineInterface:
                     self.os.print_available_drivers()
                 elif command == "sudo apt-get install":
                     type = input("Type:\t").lower()
-                    name = input("Name:\t").lower()
+                    name = input("Name:\t")
                     self.os.install_new_driver(type, name)
                 elif command == "cat /etc/os-release":
                     print(self.os)

@@ -2,7 +2,7 @@ import json
 import os
 from loading import simulate_loading
 
-os.chdir(r"C:\Education\University\POIS\second_semester\lab_1\src\os_simulation")
+os.chdir(r"C:\Education\University\POIS\second_semester\lab_1\lab_1\src\os_simulation")
 
 
 class DriverPackage:

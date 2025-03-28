@@ -34,6 +34,7 @@ class OperatingSystem:
 
     def shutdown(self):
         self.is_running = False
+        self.__file_system.save_to_json()
         print("System shutdown")
 
     # Kernel methods implementation

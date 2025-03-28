@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 
 
 class File:
@@ -6,6 +7,13 @@ class File:
         self.name = name
         self.content = content
         self.memory = len(content)
+
+    def to_dict(self):
+        return {"name": self.name, "content": self.content}
+
+    @staticmethod
+    def from_dict(data: dict) -> "File":
+        return File(data["name"], data["content"])
 
     def __repr__(self):
         return f"File({self.name}, {self.content})"
@@ -29,6 +37,26 @@ class Directory:
             self.subdirectories[directory.name] = directory
         else:
             print(f"Directory {directory.name} already exists")
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "files": [file.to_dict() for file in self.files.values()],
+            "subdirectories": [
+                subdir.to_dict() for subdir in self.subdirectories.values()
+            ],
+        }
+
+    @staticmethod
+    def from_dict(data: dict, parent: "Directory" = None) -> "Directory":
+        directory = Directory(data["name"], parent=parent)
+        for file_data in data.get("files", []):
+            file = File.from_dict(file_data)
+            directory.add_file(file)
+        for subdir_data in data.get("subdirectories", []):
+            subdir = Directory.from_dict(subdir_data, parent)
+            directory.add_directory(subdir)
+        return directory
 
 
 class IFileSystem(ABC):
@@ -60,9 +88,13 @@ class IFileSystem(ABC):
 class FileSystem(IFileSystem):
     DIRECTORY_SIZE = 1
 
-    def __init__(self):
-        self.__root = Directory("__root")
-        self.__current_directory = self.__root
+    def __init__(self, root=None, current_dir=None):
+        if root is None:
+            self.__root = Directory("__root")
+            self.__current_directory = self.__root
+        else:
+            self.__root = root
+            self.__current_directory = current_dir
 
     @property
     def root(self):
@@ -122,3 +154,27 @@ class FileSystem(IFileSystem):
         else:
             print(f"There is no such file or directory as {name}")
             return 0
+
+    def to_dict(self) -> dict:
+        return self.__root.to_dict()
+
+    def save_to_json(self, filepath: str = "filesystem.json"):
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(self.to_dict(), f, indent=4)
+        print(f"FileSystem saved to {filepath}")
+
+    @staticmethod
+    def from_dict(data: dict) -> "FileSystem":
+        fs = FileSystem()
+        # Переопределяем __root и устанавливаем __current_directory равной корню
+        fs._FileSystem__root = Directory.from_dict(data)
+        fs._FileSystem__current_directory = fs._FileSystem__root
+        return fs
+
+    @classmethod
+    def load_from_json(cls, filepath: str = "filesystem.json") -> "FileSystem":
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        fs = cls.from_dict(data)
+        print(f"FileSystem loaded from {filepath}")
+        return fs
