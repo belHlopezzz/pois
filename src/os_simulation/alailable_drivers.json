@@ -1,0 +1,70 @@
+{
+    "drivers": {
+        "monitor": [
+            {
+                "name": "Dell U2723QE",
+                "version": "1.2.3"
+            },
+            {
+                "name": "LG UltraFine 5K",
+                "version": "2.0.1"
+            },
+            {
+                "name": "ASUS ProArt PA32UCX",
+                "version": "3.5.0"
+            }
+        ],
+        "graphics_card": [
+            {
+                "name": "NVIDIA GeForce RTX 4090",
+                "version": "551.23"
+            },
+            {
+                "name": "AMD Radeon RX 7900 XTX",
+                "version": "24.3.1"
+            },
+            {
+                "name": "Intel Arc A770",
+                "version": "101.5379"
+            }
+        ],
+        "network": [
+            {
+                "name": "Intel Wi-Fi 6 AX200",
+                "version": "22.180.0"
+            },
+            {
+                "name": "Realtek RTL8125B",
+                "version": "10.56.0"
+            },
+            {
+                "name": "Qualcomm Atheros QCA9377",
+                "version": "12.0.0.927"
+            }
+        ],
+        "audio": [
+            {
+                "name": "Realtek High Definition Audio",
+                "version": "6.0.9235.1"
+            },
+            {
+                "name": "Creative Sound BlasterX AE-5",
+                "version": "3.4.7"
+            },
+            {
+                "name": "ASUS Xonar DX",
+                "version": "8.1.8.1823"
+            }
+        ],
+        "chipset": [
+            {
+                "name": "AMD Ryzen Chipset",
+                "version": "5.02.19.2221"
+            },
+            {
+                "name": "Intel Chipset Device Software",
+                "version": "10.1.18793.8276"
+            }
+        ]
+    }
+}
