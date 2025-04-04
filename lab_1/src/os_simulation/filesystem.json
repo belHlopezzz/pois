@@ -1,15 +1,25 @@
 {
     "name": "__root",
-    "files": [],
+    "files": [
+        {
+            "name": "first_file",
+            "content": "Ignat"
+        }
+    ],
     "subdirectories": [
         {
-            "name": "file_1",
+            "name": "first_dir",
             "files": [
                 {
-                    "name": "file_1",
-                    "content": "Ignat"
+                    "name": "rand_file",
+                    "content": "Pikta"
                 }
             ],
+            "subdirectories": []
+        },
+        {
+            "name": "second_dir",
+            "files": [],
             "subdirectories": []
         }
     ]

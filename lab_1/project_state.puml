@@ -1,0 +1,72 @@
+@startuml name
+skinparam backgroundColor white
+skinparam state {
+  BackgroundColor LightBlue
+  BorderColor Blue
+  ArrowColor Blue
+}
+
+[*] --> Initialization : Start Program
+
+state Initialization {
+  state "Input FileSystem Choice" as FSChoice
+  state "Select Network Protocol" as NetChoice
+  state "Set Total Storage" as StorageChoice
+  state "Initialize OS Components" as OSInit
+
+  FSChoice --> NetChoice : User selects new or existing FileSystem
+  NetChoice --> StorageChoice : User selects TCP or UDP
+  StorageChoice --> OSInit : User inputs total storage
+}
+
+Initialization --> Authentication : OS Initialized
+
+state Authentication {
+  state "Enter Username" as UserInput
+  state "Enter Password" as PassInput
+  state "Verify Credentials" as Verify
+
+  UserInput --> PassInput : Username entered
+  PassInput --> Verify : Password entered
+}
+
+Authentication --> CLI_Running : Credentials Valid
+Authentication --> Failed : Credentials Invalid
+Failed --> [*] : Exit
+
+state CLI_Running {
+  state "Idle" as Idle
+  state "Process Command" as ProcessCmd
+
+  Idle --> ProcessCmd : User enters command
+  ProcessCmd --> Idle : Command executed
+
+  state ProcessCmd {
+    state "Parse Command" as Parse
+    state "Execute Command" as Execute
+
+    Parse --> Execute : Command recognized
+    Parse --> Idle : Unknown command
+  }
+
+  [*] --> Idle : CLI Started
+  Idle --> Shutdown : "exit" command
+}
+
+CLI_Running --> Shutdown : Exit command received
+Shutdown --> [*] : System shutdown
+
+note right of Authentication
+  If authentication fails,
+  the system terminates.
+end note
+
+note right of CLI_Running
+  Supported commands:
+  - help, fork, ps, strp, stpp
+  - touch, mkdir, cd, ls, cat, rm
+  - send, receive, dmesg, drivermarket
+  - sudo apt-get install, cat /etc/os-release
+end note
+
+@enduml
